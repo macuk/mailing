@@ -1,6 +1,6 @@
 # Mailing
 
-TODO: Write a gem description
+Tool for sending fast mailings
 
 ## Installation
 
@@ -16,9 +16,28 @@ Or install it yourself as:
 
     $ gem install mailing
 
-## Usage
+## Usage -- the hard way
 
-TODO: Write usage instructions here
+    # create channel with config
+    config = {...}
+    channel = Mailing::SmtpChannel.new(config)
+
+    # create sender with channel, envelope_from and logger
+    sender = Mailing::Sender.new(channel, 'sender@domain.com', Logger.new(path_to_logfile))
+
+    # create mailing with from, subject, body, recipients
+    recipients = %w(john@domain.com paul@domain.com peter@domain.com)
+    mailing = Mailing::Mailing.new('from@domain.com', 'Subject', 'Body', recipients)
+
+    # send mailing
+    mailing.send(sender)
+
+## Usage -- Rails shortcut
+
+    mailing = Mailing::Mailing.new('from@domain.com', 'Subject', 'Body')
+    mailing.recipients = User.pluck(:email)
+    mailing.send_by_smtp(ActionMailer::Base.smtp_settings,
+                         'sender@domain.com', Rails.logger)
 
 ## Contributing
 

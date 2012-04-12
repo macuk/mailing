@@ -1,5 +1,4 @@
-require "mailing/version"
-
-module Mailing
-  # Your code goes here...
-end
+require 'mailing/version'
+require 'mailing/mailing'
+require 'mailing/sender'
+require 'mailing/smtp_channel'
