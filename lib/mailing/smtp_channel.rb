@@ -41,4 +41,5 @@ module Mailing
     def finish
       @smtp.finish
     end
+  end
 end
