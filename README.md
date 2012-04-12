@@ -16,23 +16,45 @@ Or install it yourself as:
 
     $ gem install mailing
 
-## Usage -- the hard way
+## Step by step usage
 
-    # create channel with config
-    config = {...}
+    require 'mailing'
+    require 'logger'
+
+    # create channel
+    config = {
+      :address => 'localhost',
+      :port    => 25,
+      :domain  => 'localhost.localdomain'
+    }
     channel = Mailing::SmtpChannel.new(config)
 
     # create sender with channel, envelope_from and logger
-    sender = Mailing::Sender.new(channel, 'sender@domain.com', Logger.new(path_to_logfile))
+    logger = Logger.new('/tmp/mailing.log')
+    sender = Mailing::Sender.new(channel, 'sender@domain.com', logger)
 
     # create mailing with from, subject, body, recipients
-    recipients = %w(john@domain.com paul@domain.com peter@domain.com)
-    mailing = Mailing::Mailing.new('from@domain.com', 'Subject', 'Body', recipients)
+    mailing = Mailing::Mailing.new('from@domain.com', 'Subject', 'Body')
+    mailing.recipients = %w(john@domain.com paul@domain.com peter@domain.com)
 
     # send mailing
     mailing.send(sender)
 
-## Usage -- Rails shortcut
+## Quick usage
+
+    require 'mailing'
+    require 'logger'
+
+    mailing = Mailing::Mailing.new('from@domain.com', 'Subject', 'Body')
+    mailing.recipients = %w(john@domain.com paul@domain.com peter@domain.com)
+    config = {
+      :address => 'localhost',
+      :port    => 25,
+      :domain  => 'localhost.localdomain'
+    }
+    mailing.send_by_smtp(config, 'sender@domain.com')
+
+## Rails usage
 
     mailing = Mailing::Mailing.new('from@domain.com', 'Subject', 'Body')
     mailing.recipients = User.pluck(:email)
