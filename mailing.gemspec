@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email          = ["piotr@macuk.pl"]
   gem.description    = %q{Tool for sending fast mailings}
   gem.summary        = %q{Fast mailings}
-  gem.homepage       = ""
+  gem.homepage       = "https://github.com/macuk/mailing"
 
   gem.files          = `git ls-files`.split($\)
   gem.executables    = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
