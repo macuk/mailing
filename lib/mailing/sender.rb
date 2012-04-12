@@ -12,6 +12,7 @@ module Mailing
     def send(mailing)
       @mailing = mailing
       @mail = @mailing.mail
+      info "Start mailing: #{Time.now}"
       info @mail.encoded
       info "Recipients count: #{@mailing.recipients.size}"
       deliver
@@ -19,6 +20,7 @@ module Mailing
 
     protected
       def deliver
+        info "Start sending: #{Time.now}"
         channel.start
         @mailing.recipients.each do |recipient|
           @mail.to = recipient
@@ -26,13 +28,14 @@ module Mailing
           sleep @delay
         end
         channel.finish
+        info "Finish sending: #{Time.now}"
         info "---" * 20
         info "\n"
       end
 
       def info(msg)
         return unless @logger
-        @logger.info "#{Time.now} #{msg}"
+        @logger.info msg
       end
   end
 end
