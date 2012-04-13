@@ -50,4 +50,18 @@ class SenderTest < MiniTest::Unit::TestCase
     @mailing.verify
     @channel.verify
   end
+
+  def test_delay
+    require 'benchmark'
+    @mailing.expect(:recipients, (1..5).to_a)
+    @mail.expect(:'to=', nil, [Fixnum])
+    @sender.delay = 0.1
+    t = Benchmark.realtime { @sender.send(@mailing) }
+    assert t > 0.5
+    assert t < 0.6
+    @sender.delay = 0.2
+    t = Benchmark.realtime { @sender.send(@mailing) }
+    assert t > 1.0
+    assert t < 1.1
+  end
 end
