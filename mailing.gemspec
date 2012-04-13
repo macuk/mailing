@@ -4,7 +4,7 @@ require File.expand_path('../lib/mailing/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors        = ["Piotr Macuk"]
   gem.email          = ["piotr@macuk.pl"]
-  gem.description    = %q{Tool for sending fast mailings}
+  gem.description    = %q{Tool for sending fast mailings in one SMTP connection}
   gem.summary        = %q{Fast mailings}
   gem.homepage       = "https://github.com/macuk/mailing"
 

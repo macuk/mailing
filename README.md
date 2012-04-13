@@ -1,6 +1,6 @@
 # Mailing
 
-Tool for sending fast mailings
+Tool for sending fast mailings in one SMTP connection.
 
 ## Installation
 
@@ -15,6 +15,11 @@ And then execute:
 Or install it yourself as:
 
     $ gem install mailing
+
+## Sending speed
+
+Default sending speed is low and set to ~ 120 mails per minute.
+You can change that value by setting the delay parameter in sender.
 
 ## Step by step usage
 
@@ -32,6 +37,7 @@ Or install it yourself as:
     # create sender with channel, envelope_from and logger
     logger = Logger.new('/tmp/mailing.log')
     sender = Mailing::Sender.new(channel, 'sender@domain.com', logger)
+    sender.delay = 0.1 # ~ 600 mails per minute
 
     # create mailing with from, subject, body, recipients
     mailing = Mailing::Mailing.new('from@domain.com', 'Subject', 'Body')
@@ -52,7 +58,9 @@ Or install it yourself as:
       :port    => 25,
       :domain  => 'localhost.localdomain'
     }
-    mailing.send_by_smtp(config, 'sender@domain.com')
+    # send with config and envelope_from set to sender@domain.com
+    # without logging and with 0.2 delay (~ 300 mails per minute)
+    mailing.send_by_smtp(config, 'sender@domain.com', nil, 0.2)
 
 ## Rails usage
 

@@ -13,9 +13,9 @@ module Mailing
       sender.send(self)
     end
 
-    def send_by_smtp(config, envelope_from, logger=nil)
+    def send_by_smtp(config, envelope_from, logger=nil, delay=DELAY)
       channel = SmtpChannel.new(config)
-      sender = Sender.new(channel, envelope_from, logger)
+      sender = Sender.new(channel, envelope_from, logger, delay)
       send(sender)
     end
 

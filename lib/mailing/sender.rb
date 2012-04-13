@@ -1,8 +1,10 @@
+require 'mailing/delay'
+
 module Mailing
   class Sender
     attr_accessor :channel, :envelope_from, :logger, :delay
 
-    def initialize(channel, envelope_from, logger=nil, delay=0.5)
+    def initialize(channel, envelope_from, logger=nil, delay=DELAY)
       @channel = channel
       @envelope_from = envelope_from
       @logger = logger
