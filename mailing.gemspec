@@ -14,5 +14,5 @@ Gem::Specification.new do |gem|
   gem.name           = "mailing"
   gem.require_paths  = ["lib"]
   gem.version        = Mailing::VERSION
-  gem.add_dependency 'mail', ["~> 2.4.4"]
+  gem.add_dependency 'mail', '>= 2.2.5' # The same as Rails 3.0
 end
