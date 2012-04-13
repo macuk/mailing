@@ -1,8 +1,8 @@
-module Mailing
-  class SmtpChannel
-    require 'net/smtp'
+require 'mailing/base_channel'
 
-    attr_accessor :config
+module Mailing
+  class SmtpChannel < BaseChannel
+    require 'net/smtp'
 
     # config: hash with smtp configuration
     # {
@@ -16,7 +16,7 @@ module Mailing
     #   :openssl_verify_mode  => 'none'
     # }
     def initialize(config)
-      @config = config
+      super
       @smtp = nil
     end
 
