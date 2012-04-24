@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'minitest/autorun'
 require 'mailing/mailing'
 
@@ -39,6 +40,15 @@ class MailingTest < MiniTest::Unit::TestCase
     assert_match /From: from/, mail
     assert_match /Subject: subject/, mail
     assert_match /body/, mail
+  end
+
+  def test_mail_with_encoding
+    mailing = Mailing::Mailing.new('Żółw <zolw@domain.com>', 'Żółć', 'korzyść')
+    mail = mailing.mail.encoded
+    assert_match 'charset=UTF-8', mail
+    assert_match 'From: =?UTF-8?B?xbvDs8WCdw==?= <zolw@domain.com>', mail
+    assert_match 'Subject: =?UTF-8?Q?=C5=BB=C3=B3=C5=82=C4=87?=', mail
+    assert_match 'a29yennFm8SH', mail
   end
 
   def test_send

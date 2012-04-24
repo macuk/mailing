@@ -20,9 +20,11 @@ module Mailing
     end
 
     def mail(builder=Mail)
-      mail = builder.new(:from => @from, :subject => @subject, :body => @body)
+      mail = builder.new
+      mail.from @from
+      mail.subject = @subject
+      mail.body = @body
       mail.charset = 'UTF-8'
-      mail.content_transfer_encoding = "8bit"
       mail
     end
   end
