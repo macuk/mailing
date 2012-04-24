@@ -27,7 +27,7 @@ class IntegrationTest < MiniTest::Unit::TestCase
     # send mailing
     t = Benchmark.realtime { mailing.send(sender) }
     assert t > 0.3
-    assert t < 0.4
+    assert t < 0.45
 
     slog = log.string
     assert_match /from@domain.com/, slog
